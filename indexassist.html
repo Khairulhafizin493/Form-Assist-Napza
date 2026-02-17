@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <title>WHO-ASSIST V3.1 (Formulir Sederhana)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            background: #f0f3f7;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #1a3e60;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #2b7a4b;
+            padding-bottom: 8px;
+        }
+        .identitas {
+            background: #e9edf2;
+            padding: 12px 18px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.9rem;
+        }
+        .identitas input {
+            border: none;
+            border-bottom: 1px solid #7f8fa4;
+            background: transparent;
+            padding: 4px 8px;
+            font-size: 0.9rem;
+            width: 200px;
+        }
+        .identitas input:focus {
+            outline: none;
+            border-bottom-color: #2b7a4b;
+        }
+        .intro {
+            background: #e1f0fa;
+            padding: 12px 18px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            border-left: 6px solid #1a4b75;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 25px;
+            border: 1px solid #bdc9d6;
+            border-radius: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1300px;
+            font-size: 0.85rem;
+        }
+        th {
+            background: #1e4a6b;
+            color: white;
+            padding: 10px 4px;
+            font-weight: 600;
+            border-right: 1px solid #39739c;
+            text-align: center;
+            vertical-align: middle;
+        }
+        td {
+            padding: 8px 3px;
+            border-bottom: 1px solid #d0dbea;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .zat {
+            background: #f4f9ff;
+            font-weight: 600;
+            text-align: left;
+            padding-left: 12px;
+            width: 200px;
+        }
+        .zat input {
+            margin-left: 8px;
+            padding: 4px 8px;
+            border: 1px solid #b0c2d4;
+            border-radius: 20px;
+            width: 100px;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        select {
+            padding: 5px;
+            border-radius: 20px;
+            border: 1px solid #a0b8ce;
+            background: white;
+            min-width: 90px;
+            font-size: 0.8rem;
+        }
+        select:disabled {
+            background: #eceff4;
+            color: #6b7c8f;
+        }
+        .skor-badge {
+            display: inline-block;
+            background: #1e4a6b;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        .intervensi {
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: #dff0d8;
+            color: #2d6a4f;
+            font-size: 0.8rem;
+        }
+        .intervensi.sedang {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .intervensi.tinggi {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .p8-section {
+            background: #edf2f8;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .p8-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+        }
+        .p8-select {
+            background: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .pola-option {
+            background: #d4e6d4;
+            padding: 8px 20px;
+            border-radius: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+        }
+        .rekom-p8 {
+            background: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        .catatan {
+            background: #d4edda;
+            border-left: 8px solid #28a745;
+            padding: 15px 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+        .catatan ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            list-style: none;
+            padding-left: 0;
+            margin-top: 8px;
+        }
+        .footer {
+            background: #e2eaf1;
+            border-radius: 30px;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .btn {
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .btn-print {
+            background: #2b7a4b;
+            color: white;
+        }
+        .btn-reset {
+            background: #b02a37;
+            color: white;
+        }
+        .kredit {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.7rem;
+            color: #6b7f99;
+        }
+        @media (max-width: 600px) {
+            .identitas input { width: 150px; }
+        }
+        @media print {
+            .btn, .kredit { display: none; }
+            body { background: white; padding: 0.5cm; }
+            th { background: #1e4a6b !important; color: white !important; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>WHO-ASSIST V3.1 (P1–P8)</h1>
+
+    <!-- identitas -->
+    <div class="identitas">
+        <span>Nama: <input type="text" id="nama" placeholder="Nama lengkap"></span>
+        <span>Tanggal: <input type="text" id="tgl" placeholder="dd/mm/yyyy"></span>
+        <span>Pewawancara: <input type="text" id="petugas" placeholder="Nama"></span>
+    </div>
+
+    <!-- pendahuluan singkat -->
+    <div class="intro">
+        <strong>PENDAHULUAN</strong> – Tanyakan penggunaan zat seumur hidup dan 3 bulan terakhir. Hanya penggunaan non-medis.
+    </div>
+
+    <!-- tabel utama -->
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Zat</th>
+                    <th>P1<br>Seumur hidup</th>
+                    <th>P2<br>Frekuensi 3 bln</th>
+                    <th>P3<br>Keinginan kuat</th>
+                    <th>P4<br>Masalah</th>
+                    <th>P5<br>Gagal tugas</th>
+                    <th>P6<br>Khawatir</th>
+                    <th>P7<br>Gagal kontrol</th>
+                    <th>Skor</th>
+                    <th>Intervensi</th>
+                </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+        </table>
+    </div>
+
+    <!-- pertanyaan 8 -->
+    <div class="p8-section">
+        <h3 style="margin-bottom: 10px;">P8. Menyuntik obat non-medis</h3>
+        <div class="p8-row">
+            <div class="p8-select">
+                <span>Pernah menyuntik?</span>
+                <select id="p8">
+                    <option value="0">Tidak pernah (0)</option>
+                    <option value="2">Ya, dalam 3 bulan terakhir (2)</option>
+                    <option value="1">Ya, tapi tidak dalam 3 bulan terakhir (1)</option>
+                </select>
+            </div>
+            <div id="polaContainer" style="display: none;" class="pola-option">
+                <span>Pola suntik 3 bln:</span>
+                <label><input type="radio" name="pola" value="ringan" checked> ≤4 hari/bulan</label>
+                <label><input type="radio" name="pola" value="berat"> >4 hari/bulan</label>
+                <span id="rekomP8" class="rekom-p8">Intervensi singkat</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- petunjuk skor -->
+    <div class="catatan">
+        <strong>Cara skoring:</strong> Jumlahkan P2+P3+P4+P5+P6+P7 (tembakau tanpa P5).<br>
+        <ul>
+            <li><b>Tembakau:</b> 0-3 = tanpa | 4-26 = singkat | 27+ = intensif</li>
+            <li><b>Alkohol:</b> 0-10 = tanpa | 11-26 = singkat | 27+ = intensif</li>
+            <li><b>Zat lain:</b> 0-3 = tanpa | 4-26 = singkat | 27+ = intensif</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <span>Jika P1 "Tidak" semua, hentikan.</span>
+        <div style="display: flex; gap: 12px;">
+            <button class="btn btn-print" id="printBtn">🖨️ Cetak / PDF</button>
+            <button class="btn btn-reset" id="resetBtn">↻ Reset</button>
+        </div>
+    </div>
+
+    <div class="kredit">Khairul hafizin – Versi sederhana</div>
+</div>
+
+<script>
+(function() {
+    // Daftar zat
+    const zatList = [
+        { id: 'tembakau', label: 'a. Tembakau' },
+        { id: 'alkohol', label: 'b. Alkohol' },
+        { id: 'ganja', label: 'c. Ganja' },
+        { id: 'kokain', label: 'd. Kokain' },
+        { id: 'amfetamin', label: 'e. Amfetamin' },
+        { id: 'inhalan', label: 'f. Inhalan' },
+        { id: 'sedativa', label: 'g. Sedativa' },
+        { id: 'halusinogen', label: 'h. Halusinogen' },
+        { id: 'opioid', label: 'i. Opioid' },
+        { id: 'lain', label: 'j. Lainnya', input: true }
+    ];
+
+    // Helper buat select dengan opsi
+    function createSelect(values, labels, disabled) {
+        let sel = document.createElement('select');
+        values.forEach((v, i) => {
+            let opt = document.createElement('option');
+            opt.value = v;
+            opt.textContent = labels[i];
+            sel.appendChild(opt);
+        });
+        sel.disabled = disabled;
+        return sel;
+    }
+
+    // Buat select untuk setiap kolom
+    function makeP2(disabled) {
+        return createSelect([0,2,3,4,6], ['Tidak(0)','1-2x(2)','Bulanan(3)','Mingguan(4)','Harian(6)'], disabled);
+    }
+    function makeP3(disabled) {
+        return createSelect([0,3,4,5,6], ['Tidak(0)','1-2x(3)','Bulanan(4)','Mingguan(5)','Harian(6)'], disabled);
+    }
+    function makeP4(disabled) {
+        return createSelect([0,4,5,6,7], ['Tidak(0)','1-2x(4)','Bulanan(5)','Mingguan(6)','Harian(7)'], disabled);
+    }
+    function makeP5(disabled) {
+        return createSelect([0,5,6,7,8], ['Tidak(0)','1-2x(5)','Bulanan(6)','Mingguan(7)','Harian(8)'], disabled);
+    }
+    function makeP6(disabled) {
+        return createSelect([0,6,3], ['Tidak(0)','Ya 3bln(6)','Ya dulu(3)'], disabled);
+    }
+    function makeP7(disabled) {
+        return createSelect([0,6,3], ['Tidak(0)','Ya 3bln(6)','Ya dulu(3)'], disabled);
+    }
+
+    const tbody = document.getElementById('table-body');
+
+    function render() {
+        tbody.innerHTML = '';
+        zatList.forEach(z => {
+            let tr = document.createElement('tr');
+            tr.dataset.zat = z.id;
+
+            // Kolom zat
+            let tdZ = document.createElement('td');
+            tdZ.className = 'zat';
+            tdZ.textContent = z.label;
+            if (z.input) {
+                let inp = document.createElement('input');
+                inp.placeholder = 'sebutkan';
+                inp.id = 'input_'+z.id;
+                tdZ.appendChild(inp);
+            }
+            tr.appendChild(tdZ);
+
+            // P1 radio
+            let tdP1 = document.createElement('td');
+            tdP1.innerHTML = `<div class="radio-group">
+                <label><input type="radio" name="p1_${z.id}" value="pernah" checked> Ya</label>
+                <label><input type="radio" name="p1_${z.id}" value="tidak"> Tidak</label>
+            </div>`;
+            tr.appendChild(tdP1);
+
+            // Tambah kolom P2-P7 (select)
+            tr.appendChild(makeTd(makeP2, false));
+            tr.appendChild(makeTd(makeP3, false));
+            tr.appendChild(makeTd(makeP4, false));
+            tr.appendChild(makeTd(makeP5, false));
+            tr.appendChild(makeTd(makeP6, false));
+            tr.appendChild(makeTd(makeP7, false));
+
+            // Skor
+            let tdSkor = document.createElement('td');
+            let spanSkor = document.createElement('span');
+            spanSkor.className = 'skor-badge';
+            spanSkor.id = 'skor_'+z.id;
+            spanSkor.textContent = '0';
+            tdSkor.appendChild(spanSkor);
+            tr.appendChild(tdSkor);
+
+            // Intervensi
+            let tdInter = document.createElement('td');
+            let spanInter = document.createElement('span');
+            spanInter.className = 'intervensi';
+            spanInter.id = 'inter_'+z.id;
+            spanInter.textContent = 'Tidak ada';
+            tdInter.appendChild(spanInter);
+            tr.appendChild(tdInter);
+
+            tbody.appendChild(tr);
+        });
+
+        // Event listener untuk radio P1
+        document.querySelectorAll('input[type="radio"][name^="p1_"]').forEach(r => {
+            r.addEventListener('change', function(e) {
+                let id = this.name.replace('p1_','');
+                updateRowState(id, this.value);
+                hitungSkor();
+            });
+        });
+
+        // Event listener untuk semua select
+        document.querySelectorAll('select').forEach(s => s.addEventListener('change', hitungSkor));
+
+        // Set initial state: semua pernah
+        zatList.forEach(z => updateRowState(z.id, 'pernah'));
+        hitungSkor();
+    }
+
+    function makeTd(fn, disabled) {
+        let td = document.createElement('td');
+        td.appendChild(fn(disabled));
+        return td;
+    }
+
+    function updateRowState(zatId, nilai) {
+        let row = Array.from(document.querySelectorAll('tr[data-zat]')).find(r => r.dataset.zat === zatId);
+        if (!row) return;
+        let selects = row.querySelectorAll('select');
+        let disable = (nilai === 'tidak');
+        selects.forEach(s => { s.disabled = disable; if(disable) s.value = '0'; });
+    }
+
+    function hitungSkor() {
+        zatList.forEach(z => {
+            let row = document.querySelector(`tr[data-zat="${z.id}"]`);
+            if (!row) return;
+            let pernah = row.querySelector(`input[name="p1_${z.id}"][value="pernah"]`).checked;
+            let skorSpan = document.getElementById('skor_'+z.id);
+            let interSpan = document.getElementById('inter_'+z.id);
+
+            if (!pernah) {
+                skorSpan.textContent = '0';
+                interSpan.textContent = 'Tidak ada';
+                interSpan.className = 'intervensi';
+                return;
+            }
+
+            let selects = row.querySelectorAll('select');
+            let p2 = parseInt(selects[0].value) || 0;
+            let p3 = parseInt(selects[1].value) || 0;
+            let p4 = parseInt(selects[2].value) || 0;
+            let p5 = parseInt(selects[3].value) || 0;
+            let p6 = parseInt(selects[4].value) || 0;
+            let p7 = parseInt(selects[5].value) || 0;
+
+            let skor;
+            if (z.id === 'tembakau') {
+                skor = p2 + p3 + p4 + p6 + p7;
+            } else {
+                skor = p2 + p3 + p4 + p5 + p6 + p7;
+            }
+            skorSpan.textContent = skor;
+
+            let intervensi = '';
+            if (z.id === 'tembakau') {
+                if (skor <= 3) intervensi = 'Tidak ada';
+                else if (skor <= 26) intervensi = 'Singkat';
+                else intervensi = 'Intensif';
+            } else if (z.id === 'alkohol') {
+                if (skor <= 10) intervensi = 'Tidak ada';
+                else if (skor <= 26) intervensi = 'Singkat';
+                else intervensi = 'Intensif';
+            } else {
+                if (skor <= 3) intervensi = 'Tidak ada';
+                else if (skor <= 26) intervensi = 'Singkat';
+                else intervensi = 'Intensif';
+            }
+
+            interSpan.textContent = intervensi;
+            interSpan.className = 'intervensi';
+            if (intervensi === 'Singkat') interSpan.classList.add('sedang');
+            else if (intervensi === 'Intensif') interSpan.classList.add('tinggi');
+        });
+    }
+
+    function updateRekomP8() {
+        let pola = document.querySelector('input[name="pola"]:checked');
+        let rekom = document.getElementById('rekomP8');
+        if (pola && pola.value === 'berat') {
+            rekom.textContent = 'Intervensi intensif';
+            rekom.style.background = '#f8d7da';
+            rekom.style.color = '#721c24';
+        } else {
+            rekom.textContent = 'Intervensi singkat';
+            rekom.style.background = '#fff3cd';
+            rekom.style.color = '#856404';
+        }
+    }
+
+    function resetForm() {
+        document.getElementById('nama').value = '';
+        document.getElementById('tgl').value = '';
+        document.getElementById('petugas').value = '';
+
+        document.querySelectorAll('input[type="radio"][value="pernah"]').forEach(r => r.checked = true);
+        document.querySelectorAll('select').forEach(s => {
+            s.value = '0';
+            s.disabled = false;
+        });
+
+        document.getElementById('p8').value = '0';
+        document.getElementById('polaContainer').style.display = 'none';
+        document.querySelector('input[name="pola"][value="ringan"]').checked = true;
+        updateRekomP8();
+
+        zatList.forEach(z => updateRowState(z.id, 'pernah'));
+        hitungSkor();
+    }
+
+    render();
+
+    // P8 event
+    document.getElementById('p8').addEventListener('change', function() {
+        let v = this.value;
+        let cont = document.getElementById('polaContainer');
+        cont.style.display = v === '2' ? 'flex' : 'none';
+        if (v === '2') updateRekomP8();
+    });
+    document.querySelectorAll('input[name="pola"]').forEach(r => r.addEventListener('change', updateRekomP8));
+
+    document.getElementById('resetBtn').addEventListener('click', resetForm);
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+})();
+</script>
+</body>
+</html>
